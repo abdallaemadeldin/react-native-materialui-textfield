@@ -356,6 +356,7 @@ export default class TextField extends PureComponent {
       inputContainerStyle: inputContainerStyleOverrides,
       clearTextOnFocus,
       helpersNumberOfLines,
+      iconPosition,
       ...props
     } = this.props;
 
@@ -519,14 +520,15 @@ export default class TextField extends PureComponent {
           <Label {...labelProps}>{label}</Label>
 
           <View style={styles.row}>
+            {iconPosition == 'left' ? this.renderAccessory() : null}
             {this.renderAffix('prefix', active, focused)}
 
             <TextInput
               style={[styles.input, inputStyle, inputStyleOverrides]}
               selectionColor={tintColor}
-
+              
               {...props}
-
+              
               editable={!disabled && editable}
               onChange={this.onChange}
               onChangeText={this.onChangeText}
@@ -535,10 +537,10 @@ export default class TextField extends PureComponent {
               onBlur={this.onBlur}
               value={value}
               ref={this.updateRef}
-            />
+              />
 
             {this.renderAffix('suffix', active, focused)}
-            {this.renderAccessory()}
+            {iconPosition == 'right' ? this.renderAccessory() : null}
           </View>
         </Animated.View>
 
